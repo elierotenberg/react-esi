@@ -1,4 +1,5 @@
 const babel = require('gulp-babel');
+const mocha = require('gulp-mocha');
 const gulp = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
 const Cache = require('gulp-file-cache');
@@ -14,6 +15,10 @@ gulp.task('build', () => gulp.src('src/**/*.js')
   .pipe(gulp.dest('dist'))
 );
 
-gulp.task('watch', ['build'], () => gulp.watch('src/**/*.js', ['build']));
+gulp.task('test', ['build'], () => gulp.src('dist/tests/**/*.js')
+  .pipe(mocha())
+);
+
+gulp.task('watch', ['build'], () => gulp.watch('src/**/*.js', ['build', 'test']));
 
 gulp.task('default', ['build']);
