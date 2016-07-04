@@ -26,7 +26,8 @@
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true
   },
   "parser": "babel-eslint",
   "plugins": [
@@ -79,7 +80,6 @@
     "no-case-declarations": 0, // disallow lexical declarations in case clauses
     "no-div-regex": 1, //disallow division operators explicitly at beginning of regular expression
     "no-else-return": 1, //disallow else after a return in an if
-    "no-empty-label": 1, //disallow use of labels for anything other than loops and switches
     "no-empty-pattern": 1, //disallow use of empty destructuring patterns
     "no-eq-null": 1, //disallow comparisons to null without a type-checking operator
     "no-eval": 1, //disallow use of eval()
@@ -94,7 +94,7 @@
     "no-labels": 1, //disallow use of labeled statements
     "no-lone-blocks": 1, //disallow unnecessary nested blocks
     "no-loop-func": 1, //disallow creation of functions within loops
-    "no-magic-numbers": 1, //disallow the use of magic numbers
+    "no-magic-numbers": [1, { "ignore": [-1, 0, 1] }], // disallow the use of magic numbers
     "no-multi-spaces": 1, //disallow use of multiple spaces (fixable)
     "no-multi-str": 1, //disallow use of multiline strings
     "no-native-reassign": 1, //disallow reassignments of native objects
@@ -168,14 +168,14 @@
     "jsx-quotes": [1, "prefer-single"], //specify whether double or single quotes should be used in JSX attributes
     "key-spacing": [1, { "beforeColon": false, "afterColon": true }], //enforce spacing between keys and values in object literal properties
     "linebreak-style": 0, //disallow mixed 'LF' and 'CRLF' as linebreaks
-    "lines-around-comment": [1, { "allowBlockStart": true, "allowObjectStart": true, "allowArrayStart": true }], //enforce empty lines around comments
+    "lines-around-comment": [1, { "beforeLineComment": true, "allowBlockStart": true, "allowObjectStart": true, "allowArrayStart": true }], //enforce empty lines around comments
     "max-nested-callbacks": [0, 3], //specify the maximum depth callbacks can be nested
-    "new-cap": [1, { "capIsNewExceptions": ["NaN", "Promise"] }], // require a capital letter for constructors
+    "new-cap": [1, { "capIsNewExceptions": ["NaN", "T.Promise"] }], // require a capital letter for constructors
     "new-parens": 1, //disallow the omission of parentheses when invoking a constructor with no arguments
     "newline-after-var": 0, //require or disallow an empty newline after variable declarations
     "no-array-constructor": 1, //disallow use of the Array constructor
     "no-continue": 1, //disallow use of the continue statement
-    "no-inline-comments": 0, //disallow comments inline after code
+    "no-inline-comments": 1, // disallow comments inline after code
     "no-lonely-if": 1, //disallow if as the only statement in an else block
     "no-mixed-spaces-and-tabs": 1, //disallow mixed spaces and tabs for indentation (recommended)
     "no-multiple-empty-lines": [1, { "max": 1 }], //disallow multiple empty lines
@@ -191,7 +191,7 @@
       "WhileStatement",
       "WithStatement",
       "ExportAllDeclaration",
-      "ExportSpecifier",
+      //"ExportSpecifier",
       "ImportNamespaceSpecifier"
     ], //disallow use of certain syntax in code
     "no-spaced-func": 1, //disallow space between function identifier and application (fixable)
@@ -216,17 +216,20 @@
     "space-before-keywords": [0, "never"], //require a space before certain keywords (fixable)
     "space-in-parens": [1, "never"], //require or disallow spaces inside parentheses
     "space-infix-ops": 1, //require spaces around operators (fixable)
-    "space-return-throw-case": 1, //require a space after return, throw, and case (fixable)
     "space-unary-ops": 0, //require or disallow spaces before/after unary operators (fixable)
     "spaced-comment": [1, "always"], //require or disallow a space immediately following the // or /* in a comment
     "wrap-regex": 1, //require regex literals to be wrapped in parentheses
 
     /* ECMAScript 6 */
     "arrow-body-style": [1, "as-needed"], // require braces in arrow function body
-    "arrow-parens": [1, "always"], // require parens in arrow function arguments
+
+    // FIXME: to reactivate when bug with async arrow functions is fixed.
+    // (It triggers for every async arrow functions even when there are parens around the args.)
+    "arrow-parens": [0, "always"], // require parens in arrow function arguments
+
     "arrow-spacing": [1, { "before": true, "after": true }], //require space before/after arrow function's arrow (fixable)
     "constructor-super": 1, //verify calls of super() in constructors
-    "no-arrow-condition": 1, // disallow arrow functions where a condition is expected
+    "no-arrow-condition": 0, // disallow arrow functions where a condition is expected
     "generator-star-spacing": [1, "after"], // enforce spacing around the * in generator functions (fixable)
     "no-class-assign": 1, //disallow modifying variables of class declarations
     "no-const-assign": 1, //disallow modifying variables that are declared using const
@@ -239,7 +242,7 @@
     "prefer-reflect": 1, //suggest using Reflect methods where applicable
     "prefer-spread": 1, //suggest using the spread operator instead of .apply().
     "prefer-template": 1, //suggest using template literals instead of strings concatenation
-    "require-yield": 1, //disallow generator functions that do not have yield
+    "require-yield": 0, //disallow generator functions that do not have yield
 
     /* Legacy */
     "max-depth": [0, 3], //specify the maximum depth that blocks can be nested
@@ -248,38 +251,5 @@
     "max-statements": 0, //specify the maximum number of statement allowed in a function
     "no-bitwise": 1, //disallow use of bitwise operators
     "no-plusplus": 1, //disallow use of unary operators, ++ and --
-
-    /* React */
-    "react/display-name": 0, //Prevent missing displayName in a React component definition
-    "react/forbid-prop-types": 0, //Forbid certain propTypes
-    "react/jsx-boolean-value": 1, //Enforce boolean attributes notation in JSX
-    "react/jsx-closing-bracket-location": 0, //Validate closing bracket location in JSX
-    "react/jsx-curly-spacing": 0, //Enforce or disallow spaces inside of curly braces in JSX attributes
-    "react/jsx-indent-props": [1, 2], //Validate props indentation in JSX
-    "react/jsx-key": 1, // Validate JSX has key prop when in array or iterator
-    "react/jsx-max-props-per-line": 0, //Limit maximum of props on a single line in JSX
-    "react/jsx-no-bind": 0, // Prevent usage of .bind() and arrow functions in JSX props
-    "react/jsx-no-duplicate-props": 1, //Prevent duplicate properties in JSX
-    "react/jsx-no-literals": 1, //Prevent usage of unwrapped JSX strings
-    "react/jsx-no-undef": 1, //Disallow undeclared variables in JSX
-    "react/jsx-pascal-case": 1, // Enforce PascalCase for user-defined JSX components
-    "react/jsx-sort-prop-types": 1, //Enforce propTypes declarations alphabetical sorting
-    "react/jsx-sort-props": 1, //Enforce props alphabetical sorting
-    "react/jsx-uses-react": 1, //Prevent React to be incorrectly marked as unused
-    "react/jsx-uses-vars": 1, //Prevent variables used in JSX to be incorrectly marked as unused
-    "react/no-danger": 1, //Prevent usage of dangerous JSX properties
-    "react/no-did-mount-set-state": 1, //Prevent usage of setState in componentDidUpdate
-    "react/no-did-update-set-state": 1, //Prevent usage of setState in componentDidUpdate
-    "react/no-direct-mutation-state": 1, //Prevent direct mutation of this.state
-    "react/no-multi-comp": 1, //Prevent multiple component definition per file
-    "react/no-set-state": 0, //Prevent usage of setState
-    "react/no-unknown-property": 1, //Prevent usage of unknown DOM property
-    "react/prefer-es6-class": 1, //Use ES6 Class instead of Reacy.createClass
-    "react/prop-types": 1, //Prevent missing props validation in a React component definition
-    "react/react-in-jsx-scope": 1, //Prevent missing React when using JSX
-    "react/require-extension": 1, //Restrict file extensions that may be required
-    "react/self-closing-comp": 1, //Prevent extra closing tags for components without children
-    "react/sort-comp": 1, //Enforce component methods order
-    "react/wrap-multilines": 0 //Prevent missing parentheses around multiline JSX
   }
 }

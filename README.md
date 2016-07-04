@@ -1,33 +1,29 @@
-This package is a simple general-purpose starterkit.
+# lib-starterkit
 
-It provides a sane directory structure, and pre-wired gulp tasks including:
-- linting with eslint and rules based on the coding styles
-- transpiling with babel (see below) with appropriate presets for usage in the browser, and in node (with unnecessary transforms removed),
-- bundling with webpack, for usage in the browser or in node.
+This base repository can be forked to develop a javascript library.
 
-By default, 4 bundles are produced when running `gulp`:
+### Contents
 
-- `browser-dev`: package is transpiled using strict mode transforms, and bundled with `eval-source-map` and all debug flags,
-- `browser-prod`: package is transpiled using loose-mode transforms (when appropriate), and bundled with `inline-source-maps`, and then minified using `uglifyjs2`.
-- `node-dev`: package is transpiled using strict mode transforms, without the transforms not required by node `^5.0.0`, and bundled with `eval-source-map` and all debug flags,
-- `node-prod`: package is transpiled using loose-mode transforms (when appropriate), without the transforms not required by node `^5.0.0`, and bundled with `inline-source-maps`, and then minified using `uglifyjs2`.
+#### Directory structure
 
-`package.json` sets the `private` flag to true by default. To actually publish your library, carefully edit `package.json`
-to proper configuration and remove the `private` flag.
+- `gulpfile.babel.js`: gulp tasks definition
+- `.babelrc`, `.editorconfig`, `.eslintignore`, `.eslintrc`, `.gitignore`, `.npmignore`: dotfiles configuration
+- `src`: library source files
+  * `src/index.js`: library entry points
+- `tests`: test files
+- `dist`: compiled files, should only be populated by `gulp tasks`
 
-Several non-standard `babel` transforms are enabled by default, including:
-- `decorators`,
-- `class-properties`,
-- `jsx`,
-- `react-inline-elements` and `react-constant-elements` only in the dev builds,
-- `object-rest-spread`,
-- `async-functions`,
-- `async-generators`,
-- `exponentiation-operator`,
-- `trailing-function-commas`.
+##### `gulp` tasks
 
-Several other general-purpose libraries are also included by default, which you can of course remove if you don't want them:
-- `lodash`,
-- `bluebird`.
+- `lint`: linting using `eslint` (based on `.eslintrc`)
+- `test`: testing using `mocha`
+- `compile`: compiling using `babel`
+- `default`: lint, test and compile
 
-Test are pre-wired to use `mocha` and `should` but are very easy to replace.
+##### Transpilation
+
+Transpilation with `babel` using the `es2015` and `stage-2` presets.
+
+##### Included libraries
+
+For convenience, `babel-polyfill` and `bluebird` are automatically included.
