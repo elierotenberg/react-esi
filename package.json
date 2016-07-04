@@ -1,5 +1,5 @@
 {
-  "name": "lib-starterkit",
+  "name": "react-esi",
   "version": "0.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -8,30 +8,43 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elierotenberg/lib-starterkit.git"
+    "url": "git+https://github.com/elierotenberg/react-esi.git"
   },
-  "author": "",
+  "author": "Elie Rotenberg <elie@rotenberg.io>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/elierotenberg/lib-starterkit/issues"
+    "url": "https://github.com/elierotenberg/react-esi/issues"
   },
-  "homepage": "https://github.com/elierotenberg/lib-starterkit#readme",
+  "homepage": "https://github.com/elierotenberg/react-esi#readme",
   "devDependencies": {
     "babel-eslint": "^6.1.0",
+    "babel-plugin-transform-class-properties": "^6.10.2",
     "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.11.0",
     "chai": "^3.5.0",
+    "esi": "^0.8.1",
     "eslint-plugin-react": "^5.2.2",
+    "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^3.0.0",
     "gulp-file-cache": "0.0.1",
     "gulp-mocha": "^2.2.0",
     "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^1.6.0"
+    "gulp-sourcemaps": "^1.6.0",
+    "koa": "^1.2.0",
+    "koa-connect": "^1.0.0",
+    "node-fetch": "^1.5.3",
+    "react": "^15.2.0",
+    "react-dom": "^15.2.0",
+    "source-map-support": "^0.4.1"
   },
   "dependencies": {
-    "babel-polyfill": "^6.9.1",
-    "bluebird": "^3.4.1"
+    "babel-polyfill": "^6.9.1"
+  },
+  "peerDependencies": {
+    "react": "^15.2.0",
+    "react-dom": "^15.2.0"
   }
 }

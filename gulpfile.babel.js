@@ -1,12 +1,12 @@
 import 'babel-polyfill';
-import Promise from 'bluebird';
-global.Promise = Promise;
+import 'source-map-support';
 
 import gulp from 'gulp';
 
 import babel from 'gulp-babel';
 import eslint from 'gulp-eslint';
 import mocha from 'gulp-mocha';
+import sourcemaps from 'gulp-sourcemaps';
 
 const sources = 'src/**/*.js';
 const tests = 'tests/**/*.js';
@@ -20,7 +20,9 @@ gulp.task('test', ['lint'], () => gulp.src([tests])
 );
 
 gulp.task('compile', ['lint'], () => gulp.src([sources])
+  .pipe(sourcemaps.init())
   .pipe(babel())
+  .pipe(sourcemaps.write())
   .pipe(gulp.dest('dist'))
 );
 
