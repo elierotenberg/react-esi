@@ -2,8 +2,6 @@
 *.pid
 *.lock
 npm-debug.log
-/app
-/config
 /gulpfile.js
 /README.md
 !dist
